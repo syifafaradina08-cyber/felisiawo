@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Felisia Wedding Organizer</title>
+
+  <!-- Font elegan -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fff7f7;
+      --card:#ffffff;
+      --ink:#2f2a2a;
+      --muted:#6f6a6a;
+      --brand:#ff7b9c;
+      --brand-2:#ffb6c1;
+      --brand-3:#ffd9e1;
+      --ring: rgba(255,123,156,.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --radius-lg: 28px;
+      --container: 1140px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: 'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background: linear-gradient(180deg, #fff7f9 0%, #fffafa 100%);
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* Navbar */
+    .nav{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter: saturate(180%) blur(10px);
+      background: rgba(255,255,255,.75);
+      border-bottom:1px solid #f3e7ea;
+    }
+    .nav__inner{
+      max-width:var(--container);
+      margin:auto;display:flex;gap:12px;
+      align-items:center;justify-content:space-between;
+      padding:14px 20px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;font-weight:700;
+      letter-spacing:.4px;
+    }
+    .brand__logo{
+      width:38px;height:38px;border-radius:12px;
+      background: radial-gradient(circle at 30% 20%, var(--brand), var(--brand-2));
+      box-shadow: inset 0 0 20px rgba(255,255,255,.55), var(--shadow);
+    }
+    .menu{display:flex;gap:18px;align-items:center}
+    .menu a{
+      font-weight:500;color:#594b4b; padding:8px 10px; border-radius:10px;
+    }
+    .menu a:hover{background:#ffe7ee}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 18px;border-radius:999px;border:0;cursor:pointer;
+      font-weight:600;box-shadow:var(--shadow);transition:.2s;
+    }
+    .btn--primary{background:var(--brand);color:white}
+    .btn--primary:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(255,123,156,.25)}
+    .btn--ghost{background:#fff;color:#c04d6a;border:1px solid #ffd3de}
+    .btn--ghost:hover{background:#fff0f5}
+
+    /* Hero */
+    .hero{
+      position:relative;overflow:hidden;
+      background:
+        linear-gradient(rgba(255,182,193,.45), rgba(255,182,193,.35)),
+        url('https://i.pinimg.com/736x/b9/a8/4d/b9a84d6f29a1c076534d47a6702318a4.jpg') center/cover no-repeat;
+    }
+    .hero::after{
+      content:"";position:absolute;inset:-20% -10% auto -10%;height:70%;
+      background: radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,.45), transparent 60%);
+      pointer-events:none;
+    }
+    .hero__wrap{
+      max-width:var(--container);margin:auto;padding:86px 20px 110px;position:relative;
+      color:#fff;text-align:center;
+    }
+    .hero h1{
+      font-family:'Dancing Script',cursive;
+      font-size: clamp(40px, 6vw, 82px);
+      margin:0 0 10px;text-shadow:0 8px 20px rgba(0,0,0,.25);
+    }
+    .hero p{
+      max-width:760px;margin:0 auto 26px;line-height:1.7;font-size:clamp(16px,2.4vw,18px);
+      text-shadow:0 6px 14px rgba(0,0,0,.25)
+    }
+    .hero__cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* Sections */
+    .section{max-width:var(--container);margin:0 auto;padding:64px 20px}
+    .section__title{
+      font-family:'Dancing Script',cursive;color:#c9486a;
+      font-size: clamp(28px, 4.6vw, 44px);
+      text-align:center;margin:0 0 24px;
+    }
+    .section__lead{max-width:760px;margin:0 auto 36px;text-align:center;color:var(--muted)}
+
+    /* Cards & grid */
+    .grid{display:grid;gap:18px}
+    @media (min-width:720px){.grid--3{grid-template-columns:repeat(3,1fr)}}
+    .card{
+      background:var(--card);border-radius:var(--radius);
+      padding:22px;box-shadow:var(--shadow);border:1px solid #ffe3ea;
+      transition:.25s;position:relative;overflow:hidden;
+    }
+    .card:hover{transform:translateY(-3px)}
+    .badge{
+      position:absolute;top:18px;right:18px;background:#fff; border:1px solid #ffd4de;
+      color:#c04d6a;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:600
+    }
+
+    /* Packages */
+    .price{font-weight:700;font-size:22px;color:#b53c5b;margin:6px 0 10px}
+    .list{margin:0;padding-left:18px;color:#6a565e}
+    .list li{margin:6px 0}
+
+    /* Gallery */
+    .gallery{display:grid;gap:12px}
+    @media (min-width:720px){.gallery{grid-template-columns:repeat(4,1fr)}}
+    .ph{
+      position:relative;border-radius:16px;overflow:hidden;aspect-ratio:1/1.1;
+      box-shadow:var(--shadow);border:1px solid #ffe3ea;background:#fff;
+    }
+    .ph img{width:100%;height:100%;object-fit:cover;transition:.35s}
+    .ph:hover img{transform:scale(1.06)}
+    .ph::after{
+      content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.22), transparent 50%);
+      opacity:0;transition:.35s
+    }
+    .ph:hover::after{opacity:1}
+
+    /* Testimonials (slider) */
+    .slider{
+      position:relative;overflow:hidden;border-radius:var(--radius-lg);
+      background:linear-gradient(180deg,#fff,#fff0f5);border:1px solid #ffe3ea;
+      box-shadow:var(--shadow)
+    }
+    .slides{display:flex;transition:transform .5s}
+    .slide{min-width:100%;padding:28px}
+    .t_card{
+      background:#fff;border:1px solid #ffe3ea;border-radius:var(--radius);
+      padding:24px;box-shadow:var(--shadow)
+    }
+    .t_name{font-weight:700;color:#b53c5b}
+    .slider__nav{
+      position:absolute;inset:auto 12px 12px;display:flex;gap:8px;justify-content:center
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;background:#ffd3de;border:1px solid #ffb7c9;cursor:pointer
+    }
+    .dot.active{background:#ff7b9c}
+
+    /* FAQ */
+    .faq details{
+      background:#fff;border:1px solid #ffe3ea;border-radius:14px;padding:14px 18px;margin:10px 0;
+      box-shadow:var(--shadow)
+    }
+    .faq summary{cursor:pointer;font-weight:600}
+    .faq p{color:#6f6a6a}
+
+    /* Contact / form */
+    .contact{
+      display:grid;gap:18px
+    }
+    @media (min-width:840px){.contact{grid-template-columns:1.1fr .9fr}}
+    .form{
+      background:#fff;border:1px solid #ffe3ea;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)
+    }
+    .field{display:flex;flex-direction:column;margin-bottom:12px}
+    .label{font-weight:600;margin-bottom:6px}
+    .input,.select,.textarea{
+      border:1.5px solid #ffd3de;border-radius:12px;padding:12px 14px;background:#fff;
+      outline:0;transition:.2s
+    }
+    .input:focus,.select:focus,.textarea:focus{box-shadow:0 0 0 6px var(--ring)}
+    .textarea{min-height:110px;resize:vertical}
+    .aside{
+      background:linear-gradient(180deg,#fff,#fff4f7);
+      border:1px solid #ffe3ea;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)
+    }
+    .aside h4{margin:0 0 8px;color:#b53c5b}
+
+    /* Footer */
+    footer{
+      margin-top:56px;padding:28px 20px;text-align:center;color:#7a6b6b;
+      border-top:1px solid #f1dbe1;background:linear-gradient(180deg,#fff,#fff4f8)
+    }
+
+    /* Floating WhatsApp */
+    .wa-float{
+      position:fixed;right:18px;bottom:18px;z-index:40;
+      background:#25d366;color:white;border-radius:999px;
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 16px;font-weight:700;box-shadow:0 10px 25px rgba(0,0,0,.18);
+      transition:.25s
+    }
+    .wa-float:hover{transform:translateY(-2px)}
+    .wa-dot{width:10px;height:10px;border-radius:50%;background:#c7ffd9}
+
+    /* Tiny helpers */
+    .muted{color:var(--muted)}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .hidden{display:none}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0;transform:translateY(18px);transition:all .6s}
+    .reveal.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <div>Felisia WO</div>
+      </div>
+      <div class="menu">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang</a>
+        <a href="#packages">Paket</a>
+        <a href="#gallery">Galeri</a>
+        <a href="#testi">Testimoni</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact" class="btn btn--ghost">Konsultasi</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero">
+    <div class="hero__wrap">
+      <h1 data-reveal>Rayakan Cinta, <br/>Dengan Sentuhan Elegan</h1>
+      <p data-reveal>Tim kami menyiapkan setiap detail—dari konsep hingga eksekusi—agar hari pernikahan Anda
+        berjalan indah, teratur, dan tak terlupakan.</p>
+      <div class="hero__cta" data-reveal>
+        <a href="#packages" class="btn btn--primary">Lihat Paket</a>
+        <a href="#contact" class="btn btn--ghost">Konsultasi Gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <h2 class="section__title reveal">Tentang Kami</h2>
+    <p class="section__lead reveal">
+      Felisia adalah Wedding Organizer yang berfokus pada keindahan detail dan kenyamanan klien.
+      Dengan pengalaman lebih dari satu dekade, kami membantu pasangan mewujudkan pernikahan impian tanpa stres.
+    </p>
+    <div class="grid grid--3">
+      <div class="card reveal">
+        <span class="badge">Nilai Kami</span>
+        <h3>Elegan & Personal</h3>
+        <p class="muted">Setiap konsep dirancang unik sesuai karakter pasangan—tidak ada yang serba template.</p>
+      </div>
+      <div class="card reveal">
+        <span class="badge">Keunggulan</span>
+        <h3>Tim Berpengalaman</h3>
+        <p class="muted">Koordinator handal, vendor terpercaya, dan SOP acara yang terbukti rapi.</p>
+      </div>
+      <div class="card reveal">
+        <span class="badge">Visi</span>
+        <h3>Momen Tak Terlupakan</h3>
+        <p class="muted">Kami memastikan Anda menikmati hari istimewa tanpa kewalahan urusan teknis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section id="packages" class="section">
+    <h2 class="section__title reveal">Paket Layanan</h2>
+    <p class="section__lead reveal">Pilih paket yang sesuai kebutuhan—bisa dikustom untuk konsep intimate hingga grand wedding.</p>
+
+    <div class="grid grid--3">
+      <div class="card reveal">
+        <span class="badge">Favorit Hemat</span>
+        <h3>Paket Silver</h3>
+        <div class="price">Mulai Rp 50.000.000</div>
+        <ul class="list">
+          <li>Koordinasi hari-H</li>
+          <li>WO full service + crew standar</li>
+          <li>Dekorasi pelaminan & lorong sederhana–semi mewah</li>
+          <li>Dokumentasi dasar (foto & video, prewed sederhana)</li>
+          <li>Catering opsional (±300–500 porsi, kalau bundling)</li>
+          <li>Fasilitas tambahan sederhana (sound system)</li>
+        </ul>
+        <div class="row" style="margin-top:10px">
+          <a href="#contact" class="btn btn--primary">Konsultasi</a>
+          <button class="btn btn--ghost" data-choose="Silver">Pilih Paket</button>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <span class="badge">Best Seller</span>
+        <h3>Paket Gold</h3>
+        <div class="price">Mulai Rp 100.000.000</div>
+        <ul class="list">
+          <li>Koordinasi hari-H</li>
+          <li>Dekorasi pelaminan mewah, photobooth, lighting profesional</li>
+          <li>Dokumentasi lengkap (foto, video cinematic, drone, prewed indoor/outdoor)</li>
+          <li>Catering besar (±500–700 porsi + stall makanan)</li>
+          <li>Hiburan & fasilitas lengkap (band/akustik, MC profesional)</li>
+        </ul>
+        <div class="row" style="margin-top:10px">
+          <a href="#contact" class="btn btn--primary">Konsultasi</a>
+          <button class="btn btn--ghost" data-choose="Gold">Pilih Paket</button>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <span class="badge">All-in</span>
+        <h3>Paket Platinum</h3>
+        <div class="price">Mulai Rp 200.000.000</div>
+        <ul class="list">
+          <li>Koordinasi hari-H</li>
+          <li>WO full service + personal assistant</li>
+          <li>Dekorasi super mewah</li>
+          <li>Dokumentasi premium</li>
+          <li>Catering besar</li>
+           <li>Entertainment kelas atas</li>
+            <li>Tambahan premium: souvenir eksklusif, undangan premium, mobil pengantin luxury, wedding cake bertingkat asli</li>
+        </ul>
+        <div class="row" style="margin-top:10px">
+          <a href="#contact" class="btn btn--primary">Konsultasi</a>
+          <button class="btn btn--ghost" data-choose="Platinum">Pilih Paket</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="section">
+    <h2 class="section__title reveal">Galeri</h2>
+    <p class="section__lead reveal">Cuplikan momen yang kami rangkai—setiap senyum punya cerita.</p>
+
+    <div class="gallery">
+      <figure class="ph reveal">
+        <img src="https://i.pinimg.com/1200x/f9/41/7f/f9417ff16d3cfd7c5bafeee24462b110.jpg" alt="Aisle floral">
+      </figure>
+      <figure class="ph reveal">
+        <img src="https://i.pinimg.com/1200x/b2/9a/47/b29a4718384b9e36b45793ec00b3e9cd.jpg" alt="Rings">
+      </figure>
+      <figure class="ph reveal">
+        <img src="https://i.pinimg.com/736x/e7/a6/c4/e7a6c4f19240065ec0c0c30accd70cb8.jpg" alt="Bouquet">
+      </figure>
+      <figure class="ph reveal">
+        <img src="c:\Users\ACER\Downloads\foto 1.jpeg" alt="First dance">
+      </figure>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testi" class="section">
+    <h2 class="section__title reveal">Apa Kata Mereka</h2>
+    <div class="slider reveal" aria-label="Testimonial slider">
+      <div class="slides" id="slides">
+        <div class="slide">
+          <div class="t_card">
+            <p>“Semua detail rapi, kami benar-benar tinggal menikmati hari H. Terima kasih EverAfter!”</p>
+            <div class="t_name">— Rey & Ruka</div>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="t_card">
+            <p>“Dekorasinya cantik sekali, sesuai moodboard. Timnya responsif & ramah.”</p>
+            <div class="t_name">— Fahru & Novi</div>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="t_card">
+            <p>“Video cinematic-nya bikin terharu setiap nonton. Highly recommended!”</p>
+            <div class="t_name">— Songkang & Uki</div>
+          </div>
+        </div>
+      </div>
+      <div class="slider__nav">
+        <button class="dot" data-dot="0" aria-label="Slide 1"></button>
+        <button class="dot" data-dot="1" aria-label="Slide 2"></button>
+        <button class="dot" data-dot="2" aria-label="Slide 3"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <h2 class="section__title reveal">Pertanyaan Umum</h2>
+    <div class="faq">
+      <details class="reveal">
+        <summary>Apakah paket bisa dikustom?</summary>
+        <p>Tentu. Kami fleksibel menyesuaikan vendor, dekor, hingga rundown sesuai kebutuhan & budget.</p>
+      </details>
+      <details class="reveal">
+        <summary>Apakah ada layanan out-of-town?</summary>
+        <p>Ada. Tim kami siap handle acara di luar kota dengan perhitungan transport & akomodasi.</p>
+      </details>
+      <details class="reveal">
+        <summary>Bagaimana proses pembayarannya?</summary>
+        <p>Umumnya DP 30–50% saat deal, pelunasan maksimal H-7. Semua transparan melalui invoice.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <h2 class="section__title reveal">Konsultasi & Booking</h2>
+    <div class="contact">
+      <form class="form reveal" id="bookingForm">
+        <div class="field">
+          <label class="label" for="nama">Nama Lengkap</label>
+          <input class="input" id="nama" name="nama" required placeholder="Nama Anda">
+        </div>
+        <div class="field">
+          <label class="label" for="wa">No. WhatsApp</label>
+          <input class="input" id="wa" name="wa" required placeholder="08xxxxxxxxxx">
+        </div>
+        <div class="field">
+          <label class="label" for="paket">Paket</label>
+          <select class="select" id="paket" name="paket" required>
+            <option value="">Pilih paket</option>
+            <option>Silver</option>
+            <option>Gold</option>
+            <option>Platinum</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="tanggal">Tanggal Acara</label>
+          <input class="input" id="tanggal" type="date" required>
+        </div>
+        <div class="field">
+          <label class="label" for="catatan">Catatan</label>
+          <textarea class="textarea" id="catatan" placeholder="Tema, venue, jumlah tamu, dll (opsional)"></textarea>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn--primary" style="min-width:160px">Kirim via WhatsApp</button>
+          <button type="reset" class="btn btn--ghost">Reset</button>
+        </div>
+        <p class="muted" style="margin-top:8px">Dengan menekan kirim, Anda akan dialihkan ke WhatsApp untuk mengirim detail booking.</p>
+      </form>
+
+      <aside class="aside reveal">
+        <h4>Kontak Langsung</h4>
+        <p class="muted">📞 0882-3263-5573<br>✉️ hello@Felisia-wo.id</p>
+        <h4>Jam Operasional</h4>
+        <p class="muted">Senin–Sabtu · 09.00–18.00 WIB</p>
+        <h4>Alamat Studio</h4>
+        <p class="muted">Jl. Melati Indah No. 10, Jakarta</p>
+        <h4>Media Sosial</h4>
+        <p class="muted">IG: @felisia.wo · TikTok: @felisia.wo</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Felisia WO · Dibuat dengan cinta.
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a class="wa-float" id="waFloat" href="https://wa.me/088232635573" target="_blank" rel="noopener">
+    <span class="wa-dot" aria-hidden="true"></span> Chat WhatsApp
+  </a>
+
+  <script>
+    // ===== Reveal on Scroll =====
+    const revealEls = document.querySelectorAll('.reveal,[data-reveal]');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+      })
+    },{threshold:.12});
+    revealEls.forEach(el=>io.observe(el));
+
+    // ===== Paket -> Prefill form =====
+    document.querySelectorAll('[data-choose]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const v = btn.getAttribute('data-choose');
+        document.querySelector('#paket').value = v;
+        document.querySelector('#contact').scrollIntoView({behavior:'smooth'});
+      });
+    });
+
+    // ===== Testimonial slider =====
+    const slides = document.getElementById('slides');
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    let idx = 0;
+    function go(i){
+      idx = i;
+      slides.style.transform = `translateX(-${i*100}%)`;
+      dots.forEach(d=>d.classList.remove('active'));
+      dots[i].classList.add('active');
+    }
+    dots.forEach((d,i)=>d.addEventListener('click',()=>go(i)));
+    go(0);
+    setInterval(()=>go((idx+1)%dots.length), 4000);
+
+    // ===== Form -> open WhatsApp with prefilled text =====
+    const FORM = document.getElementById('bookingForm');
+    FORM.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const nama = document.getElementById('nama').value.trim();
+      const wa   = document.getElementById('wa').value.trim();
+      const paket= document.getElementById('paket').value;
+      const tgl  = document.getElementById('tanggal').value;
+      const note = document.getElementById('catatan').value.trim();
+
+      if(!nama || !wa || !paket || !tgl){
+        alert('Mohon lengkapi data terlebih dahulu.'); return;
+      }
+
+      // Nomor admin WO (ubah sesuai kebutuhan)
+      const admin = '6288232635573';
+      const message = encodeURIComponent(
+        `Halo Felisia WO,` +
+        `Saya ${nama} ingin booking:` +
+        `• Paket: ${paket}` +
+        `• Tanggal: ${tgl}` +
+  (note ? `• Catatan: ${note}` : ``) +
+  `No. WhatsApp saya: ${wa}`
+);
+      window.open(`https://wa.me/${admin}?text=${message}`, '_blank');
+    });
+
+    // ===== Floating WA target (optional dynamic) =====
+    // Ganti nomor admin di sini juga bila perlu:
+    document.getElementById('waFloat').href = 'https://wa.me/6288232635573';
+
+  </script>
+</body>
+</html>
